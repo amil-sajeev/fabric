@@ -118,6 +118,20 @@ func (s *SmartContract) getPatient(APIstub shim.ChaincodeStubInterface, args []s
 	return shim.Success(patientAsBytes)
 }
 
+func (s *SmartContract) createPatient(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+
+	if len(args) != 2 {
+		return shim.Error("Incorrect number of arguments. Expecting 2")
+	}
+
+	var patient = Patient{FirstName: args[1], LastName: args[2]}
+
+	patientAsBytes, _ := json.Marshal(patient)
+	APIstub.PutState(args[0], patientAsBytes)
+
+	return shim.Success(nil)
+}
+
 func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
 	patients := []Patient{
 		Patient{FirstName: "Rincy", LastName: "Yohannan"},
