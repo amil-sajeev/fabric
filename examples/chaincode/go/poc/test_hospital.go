@@ -47,10 +47,10 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.getPatient(APIstub, args)
 	} else if function == "initLedger" {
 		return s.initLedger(APIstub)
-	} 
-	/* else if function == "createPatient" {
+	} else if function == "createPatient" {
 		return s.createPatient(APIstub, args)
-	} else if function == "createPhysician" {
+	} 
+	/* else if function == "createPhysician" {
 		return s.createPhysician(APIstub, args)
 	}  else if function == "getAllRecords" {
 		return s.getAllRecords(APIstub)
