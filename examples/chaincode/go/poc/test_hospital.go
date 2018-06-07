@@ -120,7 +120,7 @@ func (s *SmartContract) getPatient(APIstub shim.ChaincodeStubInterface, args []s
 
 func (s *SmartContract) createPatient(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
-	if len(args) != 2 {
+	if len(args) != 3{
 		return shim.Error("Incorrect number of arguments. Expecting 2")
 	}
 
