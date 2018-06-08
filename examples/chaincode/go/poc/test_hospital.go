@@ -49,10 +49,10 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.initLedger(APIstub)
 	} else if function == "createPatient" {
 		return s.createPatient(APIstub, args)
-	} 
-	/* else if function == "createPhysician" {
+	} else if function == "createPhysician" {
 		return s.createPhysician(APIstub, args)
-	}  else if function == "getAllRecords" {
+	} 
+	/* else if function == "getAllRecords" {
 		return s.getAllRecords(APIstub)
 	} else if function == "getRecord" {
 		return s.getRecord(APIstub, args)
@@ -121,13 +121,27 @@ func (s *SmartContract) getPatient(APIstub shim.ChaincodeStubInterface, args []s
 func (s *SmartContract) createPatient(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 
 	if len(args) != 3{
-		return shim.Error("Incorrect number of arguments. Expecting 2")
+		return shim.Error("Incorrect number of arguments. Expecting 3")
 	}
 
 	var patient = Patient{FirstName: args[1], LastName: args[2]}
 
 	patientAsBytes, _ := json.Marshal(patient)
 	APIstub.PutState(args[0], patientAsBytes)
+
+	return shim.Success(nil)
+}
+
+func (s *SmartContract) createPhysician(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+
+	if len(args) != 3{
+		return shim.Error("Incorrect number of arguments. Expecting 3")
+	}
+
+	var physician = Physician{FirstName: args[1], LastName: args[2]}
+
+	physicianAsBytes, _ := json.Marshal(physician)
+	APIstub.PutState(args[0], physicianAsBytes)
 
 	return shim.Success(nil)
 }
